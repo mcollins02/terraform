@@ -1,0 +1,7 @@
+*tfstate
+tf.plan
+config-map*
+kubeconfig*
+.DS_Store
+.terragrunt*
+.terraform

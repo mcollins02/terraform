@@ -1,0 +1,36 @@
+terragrunt = {
+  terraform {
+    source = "git::ssh://git@bitbucket.org/sensusanalytics-dev/xylem-aws-terraform.git//modules//atlantis"
+  }
+  include = {
+    path = "${find_in_parent_folders()}"
+  }
+}
+
+################################################################################
+# Environment Definition
+################################################################################
+region                     = "us-east-1"
+vpc_name                   = "admin"
+app_name                   = "atlantis"
+remote_state_path          = "envs/xylem-admin/infra/terraform.tfstate"
+################################################################################
+# EC2 Configurations
+################################################################################
+instance_type              = "t2.medium"
+instance_number            = "1"
+ami                        = "ami-0c36a4519c477e0df"
+key_name                   = "xylem-devops-admin"
+ec2_subnet_id              = "subnet-04fb1389239353ca5"
+################################################################################
+# ALB Configurations
+################################################################################
+is_internal                = false
+app_port                   = "4141"
+alb_bucket_logs            = "878635776968-admin-alb-logs"
+alb_subnets                = ["subnet-04fb1389239353ca5", "subnet-074292f6c3f97fe9b", "subnet-07c45844630bd24f5", "subnet-00fd455208d950459"]
+################################################################################
+# Tags
+################################################################################
+tag_env                    = "prod"
+tag_component              = "atlantis"
